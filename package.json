@@ -1,5 +1,5 @@
 {
-  "name": "markdown-translator",
+  "name": "markdown-translator-5",
   "version": "0.4.5",
   "description": "Directly translate markdown file using Azure Text Translate API",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "dist:win": "pkg package.json --targets node8-win-x64"
   },
   "bin": {
-    "md-translator": "./cli.js"
+    "md-translator-5": "./cli.js"
   },
   "pkg": {
     "assets": "config.json"

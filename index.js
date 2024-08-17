@@ -12,9 +12,19 @@ const { translate } = require('./lib/translateByMicrosoft')
 module.exports = ({ src, text, from, to, subscriptionKey, region }) => {
   return new Promise((resolve, reject) => {
     const tree = parseToTree({ src, text })
-    const nodeArr = getTextTobeTranslated(tree)
+    const nodeArr = getTextTobeTranslated(tree).sort((a, b) => a.type.localeCompare(b.type)).reverse();
+
     const textArr = nodeArr.reduce((prev = [], cur) => {
-      if (cur && cur.value) {
+      if (cur && cur.value && cur.type === 'text') {
+        prev.push({
+          text: cur.value,
+        })
+      }
+      return prev
+    }, [])
+
+    const htmlArray = nodeArr.reduce((prev = [], cur) => {
+      if (cur && cur.value && cur.type === 'html') {
         prev.push({
           text: cur.value,
         })
@@ -23,6 +33,7 @@ module.exports = ({ src, text, from, to, subscriptionKey, region }) => {
     }, [])
 
     const chunkTextArr = chunk(textArr, 100)
+    const htmlTextArr = chunk(htmlArray, 100)
 
     const translatePromises = []
 
@@ -33,7 +44,18 @@ module.exports = ({ src, text, from, to, subscriptionKey, region }) => {
           to,
           subscriptionKey,
           region,
-        })
+        }, "plain")
+      )
+    }
+
+    for (let eachTextArr of htmlTextArr) {
+      translatePromises.push(
+        translate(eachTextArr, {
+          from,
+          to,
+          subscriptionKey,
+          region,
+        }, "html")
       )
     }
 
