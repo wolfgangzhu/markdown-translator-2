@@ -44,8 +44,8 @@ jobs:
 
       - name: Run Translate
         run: |
-          ./markdown-translator-linux set --region ${{secrets.AZURE_REGION}}
-          ./markdown-translator-linux set --key ${{secrets.AZURE_KEY}}
+#          ./markdown-translator-linux set --region ${{secrets.AZURE_REGION}}
+#          ./markdown-translator-linux set --key ${{secrets.AZURE_KEY}}
           ./markdown-translator-linux translate --src README.md --dest README.a.md --to zh
           rm -rf ./markdown-translator-linux
 
