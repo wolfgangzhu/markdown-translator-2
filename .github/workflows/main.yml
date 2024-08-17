@@ -41,13 +41,18 @@ jobs:
       - name: Auth Permission
         run: chmod +x ./markdown-translator-linux
 
+
       - name: Run Translate
-        run: ./markdown-translator-linux translate --src README.md --dest README.zh.md --to zh
-        
-#      - name: Add And Push to CN Branch
-#        uses: EndBug/add-and-commit@v9
-#        with:
-#          message: Add and commit
-#          committer_name: GitHub Actions
-#          committer_email: github.action@github.com
-#
+        run: |
+          ./markdown-translator-linux set --region ${{secrets.AZURE_REGION}}
+          ./markdown-translator-linux set --key ${{secrets.AZURE_KEY}}
+          ./markdown-translator-linux translate --src README.md --dest README.a.md --to zh
+          rm -rf ./markdown-translator-linux
+
+      - name: Add And Push to CN Branch
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: Add and commit
+          committer_name: GitHub Actions
+          committer_email: github.action@github.com
+
