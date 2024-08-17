@@ -27,21 +27,24 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '12.x'
+#      - name: Use Node.js
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '12.x'
+#
+#      - name: Install npm package
+#        run: npm install
+#
+#      - name: Install npm package
+#        run: wget https://github.com/wolfgangzhu/markdown-translator-2/releases/download/1.0.0/markdown-translator-linux
 
-      - name: Install npm package
-        run: npm install 
-
-      - name: Install npm package
-        run: npm run dist:mac
+      - name: Run Translate
+        run: ./markdown-translator-linux translate --src README.md --dest README.zh.md --to zh
         
-      - name: Add And Push to CN Branch
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: Add and commit 
-          committer_name: GitHub Actions
-          committer_email: github.action@github.com
-        
+#      - name: Add And Push to CN Branch
+#        uses: EndBug/add-and-commit@v9
+#        with:
+#          message: Add and commit
+#          committer_name: GitHub Actions
+#          committer_email: github.action@github.com
+#
