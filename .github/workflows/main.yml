@@ -30,7 +30,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '8.x'
+          node-version: '12.x'
 
       - name: Install npm package
         run: npm install 
