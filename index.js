@@ -66,7 +66,7 @@ module.exports = ({ src, text, from, to, subscriptionKey, region }) => {
           if (node && node.value) {
             const result = data.shift()
             if (result && result.translations) {
-              node.value = result.translations[0].text
+              node.value = result.translations[0].text.replace('描述： >\n', 'description: >->\n').replace('style=“信息” %}', 'style="info" %}\n')
             }
           }
         }
